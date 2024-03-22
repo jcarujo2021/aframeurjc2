@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="component3.js"></script>
+  </head>
+  <body>
+    <a-scene background="color: #ECECEC">
+      <a-box position="-1 0.5 -2" rotation="0 45 0" color="#4CC3D9"
+          animation__rotate="property: rotation; to: 0 405 0; dur: 2000; loop: true"
+          animation__move="startEvents: click; property: position; from: -1 1.5 -3; to: -1 0.5 -3; dur: 1000; easing: easeInOutQuad">
+      </a-box>
+      <a-sphere id="redBall" position="0 1.25 -5" radius="1.25" color="#EF2D5E"
+          animation__scale="startEvents: click; property: scale; from: 2 2 2; to: 1 1 1; dur: 1000; easing: easeInOutBack"
+          hello="message: Hola">
+      </a-sphere>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"
+          animation__color="property: material.color; from: #7BC8A4; to: #FF5733; dur: 2000; dir: alternate; loop: true">
+      </a-plane>
+      <a-cone position="1 0.75 -3" radius-bottom="0.5" radius-top="0.1" height="1.5" color="#FFD700"
+          animation__rotate="property: rotation; to: 0 360 0; dur: 2000; loop: true">
+      </a-cone>
+      <a-entity cursor="rayOrigin:mouse"></a-entity>
+      
+      <script>
+        
+        var redBall = document.querySelector('#redBall');
+        
+        
+        var redBallPositionY = 1.25;
+        var redBallSpeed = 0.01;
+        
+ 
+        function updateRedBallPosition() {
+          redBall.object3D.position.y = redBallPositionY;
+          
+          if (redBallPositionY > 2 || redBallPositionY < 1) {
+            redBallSpeed *= -1;
+          }
+          
+          redBallPositionY += redBallSpeed;
+        }
+        
+   
+        AFRAME.registerComponent('update-red-ball', {
+          tick: function () {
+            updateRedBallPosition();
+          }
+        });
+      </script>
+      
+      <a-sphere id="redBall" position="0 1.25 -5" radius="1.25" color="#EF2D5E"
+          animation__scale="startEvents: click; property: scale; from: 2 2 2; to: 1 1 1; dur: 1000; easing: easeInOutBack"
+          hello="message: Hola"
+          update-red-ball>
+      </a-sphere>
+      
+    </a-scene>
+  </body>
+</html>
